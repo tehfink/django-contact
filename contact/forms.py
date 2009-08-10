@@ -7,7 +7,7 @@ a web interface, and a subclass demonstrating useful functionality.
 
 from django import forms
 from django.conf import settings
-from django.contrib.sites.models import Site
+from django.contrib.sites.models import RequestSite, Site
 from django.core.mail import send_mail
 from django.template import loader, RequestContext
 
@@ -87,8 +87,14 @@ class ContactForm(forms.Form):
         if self._context is None:
             self._context = RequestContext(self.request,
                                            dict(self.cleaned_data,
-                                                site=Site.objects.get_current()))
+                                                site=self.get_current_site()))
         return self._context
+
+    def get_current_site(self):
+        if Site._meta.installed:
+            return Site.objects.get_current()
+        elif self.request:
+            return RequestSite(self.request)
 
     def get_message_dict(self):
         if not self.is_valid():
@@ -121,7 +127,7 @@ class AkismetContactForm(ContactForm):
             from akismet import Akismet
             from django.utils.encoding import smart_str
             akismet_api = Akismet(key=settings.AKISMET_API_KEY,
-                                  blog_url='http://%s/' % Site.objects.get_current().domain)
+                                  blog_url='http://%s/' % self.get_current_site().domain)
             if akismet_api.verify_key():
                 akismet_data = { 'comment_type': 'comment',
                                  'referer': self.request.META.get('HTTP_REFERER', ''),
