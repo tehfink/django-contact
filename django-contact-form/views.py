@@ -53,7 +53,7 @@ def contact_form(request, form_class=ContactForm,
     """
     if login_required and not request.user.is_authenticated():
         return redirect_to_login(request.path)
-    
+
     if request.method == 'POST':
         form = form_class(data=request.POST, files=request.FILES, request=request)
         if form.is_valid():

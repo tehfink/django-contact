@@ -136,7 +136,7 @@ class ContactForm(forms.Form):
             raise TypeError("Keyword argument 'request' must be supplied")
         super(ContactForm, self).__init__(data=data, files=files, *args, **kwargs)
         self.request = request
-    
+
     name = forms.CharField(max_length=100,
                            widget=forms.TextInput(attrs=attrs_dict),
                            label=u'Your name')
@@ -145,17 +145,17 @@ class ContactForm(forms.Form):
                              label=u'Your email address')
     body = forms.CharField(widget=forms.Textarea(attrs=attrs_dict),
                               label=u'Your message')
-    
+
     from_email = settings.DEFAULT_FROM_EMAIL
-    
+
     recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
 
     subject_template_name = "contact_form/contact_form_subject.txt"
-    
+
     template_name = 'contact_form/contact_form.txt'
 
     _context = None
-    
+
     def message(self):
         """
         Renders the body of the message to a string.
@@ -167,7 +167,7 @@ class ContactForm(forms.Form):
             template_name = self.template_name
         return loader.render_to_string(template_name,
                                        self.get_context())
-    
+
     def subject(self):
         """
         Renders the subject of the message to a string.
@@ -176,7 +176,7 @@ class ContactForm(forms.Form):
         subject = loader.render_to_string(self.subject_template_name,
                                           self.get_context())
         return ''.join(subject.splitlines())
-    
+
     def get_context(self):
         if not self.is_valid():
             raise ValueError("Cannot generate Context from invalid contact form")
@@ -185,7 +185,7 @@ class ContactForm(forms.Form):
                                            dict(self.cleaned_data,
                                                 site=Site.objects.get_current()))
         return self._context
-    
+
     def get_message_dict(self):
         if not self.is_valid():
             raise ValueError("Message cannot be sent from invalid contact form")
@@ -194,7 +194,7 @@ class ContactForm(forms.Form):
             attr = getattr(self, message_part)
             message_dict[message_part] = callable(attr) and attr() or attr
         return message_dict
-    
+
     def save(self, fail_silently=False):
         """
         Builds and sends the email message.
