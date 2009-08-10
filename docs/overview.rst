@@ -68,20 +68,20 @@ Basic usage
 To get up and running immediately using the default setup, do the
 following:
 
-    * Add ``contact_form`` to your project's ``INSTALLED_APPS``
-      setting. You will *not* need to run ``manage.py syncdb``, since
-      this application provides no models.
+    * Add ``contact`` to your project's ``INSTALLED_APPS`` setting. You will
+      *not* need to run ``manage.py syncdb``, since this application provides
+      no models.
 
     * In your root URLConf, add the following URL pattern::
           
-          (r'^contact/', include('contact_form.urls'),
-    
-    * Create four templates: ``contact_form/contact_form_subject.txt``
-      and ``contact_form/contact_form.txt``, which will be used to
+          (r'^contact/', include('contact.urls'),
+
+    * Create four templates: ``contact/contact_subject.txt``
+      and ``contact/contact.txt``, which will be used to
       render the email messages sent by the form;
-      ``contact_form/contact_form.html``, which will be used to
+      ``contact/contact.html``, which will be used to
       display the form to users; and
-      ``contact_form/contact_form_sent.html``, which will be used
+      ``contact/contact_sent.html``, which will be used
       after the form is successfully submitted.  See the forms and
       views documentation, respectively, for details on the contexts
       available to the first three templates; the fourth is rendered

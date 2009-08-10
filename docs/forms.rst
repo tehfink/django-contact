@@ -33,14 +33,14 @@ subclass of it from one of your own views, just do the following:
        this is used internally by the base implementation, and also
        made available so that subclasses can add functionality which
        relies on inspecting the request.
-       
+
     2. To send the message, call the form's ``save`` method, which
        accepts the keyword argument ``fail_silently`` and defaults it
        to ``False``. This argument is passed directly to
        ``send_mail``, and allows you to suppress or raise exceptions
        as needed for debugging. The ``save`` method has no return
        value.
-       
+
 Other than that, treat it like any other form; validity checks and
 validated data are handled normally, through the ``is_valid`` method
 and the ``cleaned_data`` dictionary.
@@ -58,31 +58,35 @@ either plain attributes or as callable methods:
     * ``from_email`` -- used to get the address to use in the
       ``From:`` header of the message. The base implementation returns
       the value of the ``DEFAULT_FROM_EMAIL`` setting.
-      
+
     * ``message`` -- used to get the message body as a string. The
       base implementation renders a template using the form's
       ``cleaned_data`` dictionary as context.
-      
+
     * ``recipient_list`` -- used to generate the list of recipients
       for the message. The base implementation returns the email
       addresses specified in the ``MANAGERS`` setting.
-      
+
     * ``subject`` -- used to generate the subject line for the
       message. The base implementation returns the string 'Message
       sent through the web site', with the name of the current
       ``Site`` prepended.
-      
+
     * ``template_name`` -- used by the base ``ContactForm`` class to
       determine which template to use for rendering the
       message. Default is ``contact_form/contact_form.txt``.
-    
+
     * ``subject_template_name`` -- used by the base ``ContactForm``
       class to determine which template to use for rendering the
       message's subject line. Regardless of the output of rendering
       this template, it will be condensed to a single line of text;
       multi-line subjects are not permitted. Default is
       ``contact_form/contact_form_subject.txt``.
-      
+
+    * ``default_to_user`` -- defaults to True; if True, and a user is
+      authenticated, the user's name and email are used for the default sender
+      fields.
+
 Internally, the base implementation ``_get_message_dict`` method
 collects ``from_email``, ``message``, ``recipient_list`` and
 ``subject`` into a dictionary, which the ``save`` method then passes

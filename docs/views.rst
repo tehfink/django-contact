@@ -22,8 +22,7 @@ class will be used.
 To specify the template to use for rendering the form (*not* the
 template used to render the email message sent from the form, which is
 handled by the form class), pass the ``template_name`` keyword
-argument; if not supplied, this will default to
-``contact/contact_form.html``.
+argument; if not supplied, this will default to ``contact/contact.html``.
 
 To specify a URL to redirect to after a successfully-sent message,
 pass the ``success_url`` keyword argument; if not supplied, this will
@@ -35,7 +34,7 @@ for the ``login_required`` keyword argument.
 To suppress exceptions raised during sending of the email, pass a
 ``True`` value for the ``fail_silently`` keyword argument. This is
 **not** recommended.
-    
+
 Template::
 
     Passed in the ``template_name`` argument.

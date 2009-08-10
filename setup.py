@@ -1,13 +1,13 @@
 from distutils.core import setup
 
 setup(
-    name = 'django-contact-form',
+    name = 'django-contact',
     version = '0.4',
-    url = 'http://github.com/rcoyner/django-contact-form/',
+    url = 'http://github.com/rcoyner/django-contact/',
     author = 'Ryan Coyner',
     author_email = 'rcoyner@gmail.com',
-    description = 'Generic contact-form application for Django',
-    packages = ['django-contact-form'],
+    description = 'Generic contact form application for Django',
+    packages = ['contact'],
     classifiers = ['Development Status :: 4 - Beta',
                    'Environment :: Web Environment',
                    'Intended Audience :: Developers',

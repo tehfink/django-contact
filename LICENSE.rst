@@ -1,8 +1,8 @@
 TERMS AND CONDITIONS FOR ACCESSING OR OTHERWISE USING DJANGO-CONTACT-FORM
 =========================================================================
 
-APACHE LICENSE AGREEMENT FOR DJANGO-CONTACT-FORM 0.4
-----------------------------------------------------
+APACHE LICENSE AGREEMENT FOR DJANGO-CONTACT 0.4
+-----------------------------------------------
 
 Copyright 2009 Ryan Coyner
 
