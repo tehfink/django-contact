@@ -14,15 +14,17 @@ hierarchy (for best results with the defaults, include it under
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
-from contact.views import contact_form
+from contact.views import contact
 
 
 urlpatterns = patterns('',
-                       url(r'^$',
-                           contact_form,
-                           name='contact'),
-                       url(r'^sent/$',
-                           direct_to_template,
-                           { 'template': 'contact/contact_sent.html' },
-                           name='contact_sent'),
-                       )
+    url(r'^$',
+        contact,
+        name = 'contact'
+    ),
+    url(r'^sent/$',
+        direct_to_template,
+        { 'template': 'contact/contact_sent.html' },
+        name = 'contact_sent'
+    ),
+)

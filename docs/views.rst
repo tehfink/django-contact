@@ -2,15 +2,13 @@
 Included views
 ==============
 
-
-One view is included with this application:
-``contact_form.views.contact_form``, which knows how to work with
-``contact_form.forms.ContactForm`` and its subclasses, and takes
-several useful keyword arguments for specifying behavior.
+One view is included with this application: ``contact.views.contact``, which
+knows how to work with ``contact.forms.ContactForm`` and its subclasses, and
+takes several useful keyword arguments for specifying behavior.
 
 
-``contact_form.views.contact_form``
-====================================
+``contact.views.contact``
+=========================
 
 Renders a contact form, validates its input and sends an email from
 it.

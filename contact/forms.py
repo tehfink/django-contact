@@ -8,7 +8,7 @@ a web interface, and a subclass demonstrating useful functionality.
 from django import forms
 from django.conf import settings
 from django.contrib.sites.models import RequestSite, Site
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage, SMTPConnection
 from django.template import loader, RequestContext
 
 
@@ -51,6 +51,8 @@ class ContactForm(forms.Form):
     from_email = settings.DEFAULT_FROM_EMAIL
 
     recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
+
+    headers = None
 
     subject_template_name = 'contact/contact_subject.txt'
 
@@ -100,8 +102,12 @@ class ContactForm(forms.Form):
         if not self.is_valid():
             raise ValueError("Message cannot be sent from invalid contact form")
         message_dict = {}
-        for message_part in ('from_email', 'message', 'recipient_list', 'subject'):
-            attr = getattr(self, message_part)
+        for message_part, attrib_name in {'from_email': 'from_email',
+                                          'body': 'message',
+                                          'to': 'recipient_list',
+                                          'subject': 'subject',
+                                          'headers': 'headers'}.items():
+            attr = getattr(self, attrib_name)
             message_dict[message_part] = callable(attr) and attr() or attr
         return message_dict
 
@@ -110,17 +116,18 @@ class ContactForm(forms.Form):
         Builds and sends the email message.
         
         """
-        send_mail(fail_silently=fail_silently, **self.get_message_dict())
+        connection = SMTPConnection(fail_silently=fail_silently)
+        EmailMessage(connection=connection, **self.get_message_dict()).send()
 
 
 class AkismetContactForm(ContactForm):
     """
     Contact form which doesn't add any extra fields, but does add an
     Akismet spam check to the validation routine.
-    
+
     Requires the setting ``AKISMET_API_KEY``, which should be a valid
     Akismet API key.
-    
+
     """
     def clean_body(self):
         if 'body' in self.cleaned_data and getattr(settings, 'AKISMET_API_KEY', ''):
