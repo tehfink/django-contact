@@ -1,6 +1,6 @@
-=====================
-Included form classes
-=====================
+=====
+Forms
+=====
 
 Two form classes are included with this application; one,
 ``contact.forms.ContactForm`` implements the necessary base functionality of a
@@ -23,7 +23,7 @@ The ``contact`` view included in this application knows how to work with this
 form and can handle many types of subclasses as well (see below for a
 discussion of the important points), so in many cases it will be all that you
 need. If you'd like to use this form or a subclass of it from one of your own
-views, just do the following:
+views, do the following:
 
     1. When you instantiate the form, pass the current ``HttpRequest`` object
        to the constructor as the keyword argument ``request``; this is used
@@ -45,9 +45,10 @@ Base implementation
 -------------------
 
 Under the hood, this form uses a somewhat abstracted interface in order to make
-it easier to subclass and add functionality. There are several important
-attributes subclasses may want to look at overriding, all of which will work
-(in the base implementation) as either plain attributes or as callable methods:
+it easier to subclass and add functionality. The folllowing are several
+important attributes subclasses may want to look at overriding, all of which
+will work (in the base implementation) as either plain attributes or as
+callable methods:
 
     * ``from_email`` -- used to get the address to use in the ``From:`` header
       of the message. The base implementation returns the value of the
@@ -65,19 +66,21 @@ attributes subclasses may want to look at overriding, all of which will work
       base implementation returns the string 'Message sent through the web
       site', with the name of the current ``Site`` prepended.
 
+    * ``headers`` -- a dictionary used to add custom headers to the message.
+
     * ``template_name`` -- used by the base ``ContactForm`` class to determine
       which template to use for rendering the message. Default is
-      ``contact_form/contact_form.txt``.
+      ``contact/body.txt``.
 
     * ``subject_template_name`` -- used by the base ``ContactForm`` class to
       determine which template to use for rendering the message's subject line.
       Regardless of the output of rendering this template, it will be condensed
       to a single line of text; multi-line subjects are not permitted. Default
-      is ``contact/contact_subject.txt``.
+      is ``contact/subject.txt``.
 
     * ``default_to_user`` -- defaults to True; if True, and a user is
-      authenticated, the user's name and email are used for the default sender
-      fields.
+      authenticated, the user's first name, last name and email from ``User``
+      is set as the values of the sender and email fields.
 
 Internally, the base implementation ``_get_message_dict`` method collects
 ``from_email``, ``message``, ``recipient_list``, ``subject`` and ``headers``

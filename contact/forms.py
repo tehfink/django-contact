@@ -10,7 +10,7 @@ from django.conf import settings
 from django.contrib.sites.models import RequestSite, Site
 from django.core.mail import EmailMessage, SMTPConnection
 from django.template import loader, RequestContext
-from django.utils.translation import ugetttext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 
 # I put this on all required fields, because it's easier to pick up
@@ -55,9 +55,9 @@ class ContactForm(forms.Form):
 
     headers = None
 
-    subject_template_name = 'contact/contact_subject.txt'
+    subject_template_name = 'contact/subject.txt'
 
-    template_name = 'contact/contact.txt'
+    template_name = 'contact/body.txt'
 
     default_to_user = True
 

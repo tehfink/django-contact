@@ -1,0 +1,108 @@
+================================
+django-contact 0.4 release notes
+================================
+
+September 17, 2009
+
+Backwards-incompatible changes
+==============================
+
+This application follows `Django`_'s policy of API stability. This means that,
+in general, code you develop against previous versions of this project should
+continue to work against newer releases with any changes necessary. However,
+backwards-incompatible changes are sometimes introduced as a decisn decision or
+to resolve bugs. This release introduces such changes.
+
+
+Changes to directory and template names
+---------------------------------------
+
+The application has been renamed from django-contact-form to django-contact,
+and therefore the code for setting up the application has changed. If you are
+using a previous version of django-contact, do the following to make it
+compatible with this release:
+
+    * Change ``contact_form`` in your ``INSTALLED_APPS`` setting to
+      ``contact``.
+
+    * In your root URLConf, change the following URL pattern from::
+
+        (r'^contact/', include('contact_form.urls'),
+
+      To this::
+
+        (r'^contact/', include('contact.urls'),
+
+    * Rename the ``templates/contact_form/`` directory to
+      ``templates/contact/``. And rename the following four templates in that
+      directory to:
+
+        ``contact_form_subject.txt`` -- ``subject.txt``
+        ``contact_form_.txt`` -- ``body.txt``
+        ``contact_form.html`` -- ``contact.html``
+        ``contact_form_sent.html`` -- ``sent.html``
+
+The directory ``contact_form`` was renamed to ``contact`` to reflect the
+functionality this application provides. This application provides a way for
+site visitors to *contact* managers of a website. Future releases of the
+application will introduce more versatility and customization of contacting
+managers. This application will provide more than just a simple form, and the
+name ``contact_form`` does not accurately describe the nature of this
+application.
+
+The four templates' names were reduced because the current naming scheme was
+redundant. The ``templates/contact_form/`` directory already described the
+namespace of the templates; prefixing each template with ``contact_form`` was
+unnecessary.
+
+
+New features
+============
+
+The new features of django-contact 0.4 are:
+
+
+Custom Headers
+--------------
+
+The application now uses the ``EmailMessage`` and ``SMTPConnection`` classes to
+send emails. This allows some additional functionality that was no available in
+the ``send_mail()`` method, such as the ability to add custom headers.
+
+See the `forms documentation`_ to see how to use custom headers.
+
+.. _forms documentation: ../forms.html
+
+
+Database Independency
+---------------------
+
+Previously, the ``django.contrib.sites`` framework had to be installed for this
+application to function. This meant that developer's project had to have a
+database backend, even though this application does not require one. The
+application will now work whether the sites framework is installed or not.
+
+
+Default User Attribute
+----------------------
+
+If a user is authenticated, the user's first name, last name and email from
+``django.contrib.auth.models.User`` is set as the values of the  sender and
+email fields. The developer is able to toggle this functionality on or off.
+
+See the `forms documentation`_ to see how to use default user.
+
+
+i18n Support
+------------
+
+The following languages are now supported:
+
+    * French
+    * German
+    * Japanese
+    * Norwegian
+    * Swedish
+
+
+.. _Django: http://www.djangoproject.com

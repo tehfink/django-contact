@@ -1,8 +1,9 @@
+=========================================================================
 TERMS AND CONDITIONS FOR ACCESSING OR OTHERWISE USING DJANGO-CONTACT-FORM
 =========================================================================
 
 APACHE LICENSE AGREEMENT FOR DJANGO-CONTACT 0.4
------------------------------------------------
+===============================================
 
 Copyright 2009 Ryan Coyner
 
@@ -20,7 +21,7 @@ limitations under the License.
 
 
 NEW BSD LICENSE AGREEMENT FOR DJANGO-CONTACT-FORM 0.1 THROUGH 0.3
------------------------------------------------------------------
+=================================================================
 
 Copyright (c) 2007, James Bennett
 All rights reserved.

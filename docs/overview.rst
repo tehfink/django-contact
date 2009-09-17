@@ -1,6 +1,6 @@
-=======================
-The contact application
-=======================
+========
+Overview
+========
 
 Providing a contact form for soliciting information from site visitors is a
 common need in web development. Writing a contact form and associated handler
@@ -30,6 +30,7 @@ A sample URLConf is included, and can be used "as-is" if the default
 ``ContactForm`` and default parameters of the ``contact`` view are all that's
 required, or studied as an example.
 
+.. _forms:
 .. _forms documentation: forms.html
 .. _views documentation: views.html
 
@@ -37,10 +38,17 @@ required, or studied as an example.
 Requirements
 ============
 
+As of django-contact 0.4, the ``EmailMessage`` and ``SMTPConnection`` classes
+are used which was first introduced in Django 1.0. Therefore, Django 1.0 is
+required for this application to function.
+
 If you will be using the included ``AkismetContactForm`` class, which performs
 an Akismet spam check as part of its validation, you will need the `Python
 Akismet module`_ and a valid Akismet API key; you can obtain an Akismet API by
 following the instructions at `the Akismet web site`_.
+
+Once you have an Akismet API key, set its value in your project's
+``settings.py`` as the setting ``AKISMET_API_KEY``.
 
 .. _Python Akismet module: http://www.voidspace.org.uk/python/modules.shtml#akismet
 .. _the Akismet web site: http://akismet.com/
@@ -57,16 +65,19 @@ To get up and running immediately using the default setup, do the following:
 
     * In your root URLConf, add the following URL pattern::
           
-          (r'^contact/', include('contact.urls'),
+        (r'^contact/', include('contact.urls'),
 
-    * Create four templates: ``contact/contact_subject.txt`` and
-      ``contact/contact.txt``, which will be used to render the email messages
-      sent by the form; ``contact/contact.html``, which will be used to display
-      the form to users; and ``contact/contact_sent.html``, which will be used
-      after the form is successfully submitted.  See the forms and views
-      documentation, respectively, for details on the contexts available to the
-      first three templates; the fourth is rendered from the
-      ``direct_to_template`` generic view, and has no context.
+    * Create the following four templates in your ``templates/contact/``
+      directory:
+
+        ``body.txt`` - Renders the body of the email message sent
+        ``subject.txt`` - Renders the subject of the email message sent
+        ``contact.html`` - The page used to display the form to users
+        ``sent.html`` - The page displayed after the form is submitted
+
+        See the `forms`_ and `views documentation`_, respectively, for details on the
+        contexts available to the first three templates; the fourth is rendered
+        from the ``directo_to_template`` generic view, and has no context.
 
 Once this is done, visiting the URL ``/contact/`` on your site will display the
 contact form, and submitting it will send an email to each address in the
