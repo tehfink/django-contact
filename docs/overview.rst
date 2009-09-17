@@ -65,7 +65,9 @@ To get up and running immediately using the default setup, do the following:
 
     * In your root URLConf, add the following URL pattern::
           
-        (r'^contact/', include('contact.urls'),
+        url(r'^contact/',
+            include('contact.urls'),
+        ),
 
     * Create the following four templates in your ``templates/contact/``
       directory:

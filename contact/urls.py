@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     ),
     url(r'^sent/$',
         direct_to_template,
-        { 'template': 'contact/contact_sent.html' },
-        name = 'contact_sent'
+        { 'template': 'contact/sent.html' },
+        name = 'sent'
     ),
 )

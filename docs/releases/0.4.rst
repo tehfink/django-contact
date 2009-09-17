@@ -31,7 +31,9 @@ compatible with this release:
 
       To this::
 
-        (r'^contact/', include('contact.urls'),
+        url(r'^contact/',
+            include('contact.urls'),
+        ),
 
     * Rename the ``templates/contact_form/`` directory to
       ``templates/contact/``. And rename the following four templates in that

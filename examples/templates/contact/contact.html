@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} contact {% endblock %}
+{% block content %}
+  <form action="." method="post">
+    <ul>
+      {{ form.as_ul }}
+      <li><input id="submit" type="submit" name="submit" value="Contact"/></li>
+    </ul>
+  </form>
+{% endblock %}

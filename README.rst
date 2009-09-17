@@ -1,6 +1,6 @@
-================================
-Generic Contact Forms for Django
-================================
+==================
+django-contact 0.4
+==================
 
 This is an application which provides a generic, extensible contact form
 functionality for use in `Django`_ projects. For installation instructions, see
@@ -11,9 +11,8 @@ The latest versions of these documents can always be viewed on the `GitHub`_
 project web site for this application, which is located at
 http://github.com/rcoyner/django-contact/.
 
-The upcoming 0.4 release will break backwards compatability with previous
-versions of django-contact. This is because the project directories have been
-re-named.
+Please see the release notes in the ``docs/`` directory before upgrading this
+application.
 
 .. _Django: http://www.djangoproject.com/
-.. _Github: http://www.github.com/
+.. _GitHub: http://www.github.com/
